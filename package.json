@@ -1,0 +1,26 @@
+{
+  "name": "threejs-ext",
+  "version": "0.89.0",
+  "main": "dist/index.js",
+  "license": "MIT",
+  "author": "jusfoun-vis",
+  "description": "The three.js expansion library with official example modules.",
+  "repository": {
+    "type": "git",
+    "url": "http://192.168.200.147:8080/vd-red/common-library/threejs-ext"
+  },
+  "scripts": {
+    "build": "webpack",
+    "test": "node ./dist/index.js"
+  },
+  "dependencies": {
+    "three": ">=0.89.0"
+  },
+  "devDependencies": {
+    "babel-core": "^6.26.0",
+    "babel-loader": "^7.1.2",
+    "babel-plugin-transform-class-properties": "^6.24.1",
+    "babel-preset-env": "^1.6.1",
+    "webpack": "^3.8.1"
+  }
+}

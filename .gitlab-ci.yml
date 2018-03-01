@@ -1,0 +1,39 @@
+##
+# General CI Config.
+# author: Molay Chen
+##
+
+# Use node env
+image: node:latest
+
+# This folder is cached between builds
+# http://docs.gitlab.com/ce/ci/yaml/README.html#cache
+cache:
+  untracked: true
+  paths:
+    - node_modules/
+    - yarn.lock
+
+# Stage: build --> test --> deploy
+stages:
+  - build
+  - test
+  - deploy
+
+# Jobs
+buildJob:
+  stage: build
+  script:
+    - /vis-env/yarn-install
+    - yarn build
+
+testJob:
+  stage: test
+  script:
+    - yarn test
+
+deployJob:
+  stage: deploy
+  script:
+    - /vis-env/deploy-lib .
+
