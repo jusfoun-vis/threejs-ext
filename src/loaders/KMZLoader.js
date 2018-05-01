@@ -4,15 +4,15 @@ import * as THREE from 'three';
  * @author mrdoob / http://mrdoob.com/
  */
 
-THREE.KMZLoader = function ( manager ) {
+const KMZLoader = function ( manager ) {
 
 	this.manager = ( manager !== undefined ) ? manager : THREE.DefaultLoadingManager;
 
 };
 
-THREE.KMZLoader.prototype = {
+KMZLoader.prototype = {
 
-	constructor: THREE.KMZLoader,
+	constructor: KMZLoader,
 
 	load: function ( url, onLoad, onProgress, onError ) {
 
@@ -92,4 +92,4 @@ THREE.KMZLoader.prototype = {
 
 };
 
-export default THREE.KMZLoader;
+export default KMZLoader;

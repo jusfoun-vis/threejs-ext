@@ -7,7 +7,7 @@ import * as THREE from 'three';
  * Code to load/decompress mesh is taken from r100 of this webgl-loader
  */
 
-THREE.UTF8Loader = function () {};
+const UTF8Loader = function () {};
 
 /**
  * Load UTF8 encoded model
@@ -19,7 +19,7 @@ THREE.UTF8Loader = function () {};
  *                   materialBase: Base url from which to load referenced textures
  */
 
-THREE.UTF8Loader.prototype.load = function ( jsonUrl, callback, options ) {
+UTF8Loader.prototype.load = function ( jsonUrl, callback, options ) {
 
 	this.downloadModelJson( jsonUrl, callback, options );
 
@@ -27,10 +27,10 @@ THREE.UTF8Loader.prototype.load = function ( jsonUrl, callback, options ) {
 
 // BufferGeometryCreator
 
-THREE.UTF8Loader.BufferGeometryCreator = function () {
+UTF8Loader.BufferGeometryCreator = function () {
 };
 
-THREE.UTF8Loader.BufferGeometryCreator.prototype.create = function ( attribArray, indices ) {
+UTF8Loader.BufferGeometryCreator.prototype.create = function ( attribArray, indices ) {
 
 	var ntris = indices.length / 3;
 
@@ -141,7 +141,7 @@ var DEFAULT_DECODE_PARAMS = {
 // runtime for different combinations of stride, decodeOffset and
 // decodeScale?
 
-THREE.UTF8Loader.prototype.decompressAttribsInner_ = function ( str, inputStart, inputEnd,
+UTF8Loader.prototype.decompressAttribsInner_ = function ( str, inputStart, inputEnd,
 	output, outputStart, stride, decodeOffset, decodeScale ) {
 
 	var prev = 0;
@@ -158,7 +158,7 @@ THREE.UTF8Loader.prototype.decompressAttribsInner_ = function ( str, inputStart,
 
 };
 
-THREE.UTF8Loader.prototype.decompressIndices_ = function ( str, inputStart, numIndices, output, outputStart ) {
+UTF8Loader.prototype.decompressIndices_ = function ( str, inputStart, numIndices, output, outputStart ) {
 
 	var highest = 0;
 
@@ -178,7 +178,7 @@ THREE.UTF8Loader.prototype.decompressIndices_ = function ( str, inputStart, numI
 
 };
 
-THREE.UTF8Loader.prototype.decompressAABBs_ = function ( str, inputStart, numBBoxen, decodeOffsets, decodeScales ) {
+UTF8Loader.prototype.decompressAABBs_ = function ( str, inputStart, numBBoxen, decodeOffsets, decodeScales ) {
 
 	var numFloats = 6 * numBBoxen;
 
@@ -211,7 +211,7 @@ THREE.UTF8Loader.prototype.decompressAABBs_ = function ( str, inputStart, numBBo
 
 };
 
-THREE.UTF8Loader.prototype.decompressMesh = function ( str, meshParams, decodeParams, name, idx, callback ) {
+UTF8Loader.prototype.decompressMesh = function ( str, meshParams, decodeParams, name, idx, callback ) {
 
 	// Extract conversion parameters from attribArrays.
 
@@ -268,7 +268,7 @@ THREE.UTF8Loader.prototype.decompressMesh = function ( str, meshParams, decodePa
 
 };
 
-THREE.UTF8Loader.prototype.copyAttrib = function ( stride, attribsOutFixed, lastAttrib, index ) {
+UTF8Loader.prototype.copyAttrib = function ( stride, attribsOutFixed, lastAttrib, index ) {
 
 	for ( var j = 0; j < stride; j ++ ) {
 
@@ -278,7 +278,7 @@ THREE.UTF8Loader.prototype.copyAttrib = function ( stride, attribsOutFixed, last
 
 };
 
-THREE.UTF8Loader.prototype.decodeAttrib2 = function ( str, stride, decodeOffsets, decodeScales, deltaStart,
+UTF8Loader.prototype.decodeAttrib2 = function ( str, stride, decodeOffsets, decodeScales, deltaStart,
 	numVerts, attribsOut, attribsOutFixed, lastAttrib, index ) {
 
 	for ( var j = 0; j < 5; j ++ ) {
@@ -294,7 +294,7 @@ THREE.UTF8Loader.prototype.decodeAttrib2 = function ( str, stride, decodeOffsets
 
 };
 
-THREE.UTF8Loader.prototype.accumulateNormal = function ( i0, i1, i2, attribsOutFixed, crosses ) {
+UTF8Loader.prototype.accumulateNormal = function ( i0, i1, i2, attribsOutFixed, crosses ) {
 
 	var p0x = attribsOutFixed[ 8 * i0 ];
 	var p0y = attribsOutFixed[ 8 * i0 + 1 ];
@@ -334,7 +334,7 @@ THREE.UTF8Loader.prototype.accumulateNormal = function ( i0, i1, i2, attribsOutF
 
 };
 
-THREE.UTF8Loader.prototype.decompressMesh2 = function ( str, meshParams, decodeParams, name, idx, callback ) {
+UTF8Loader.prototype.decompressMesh2 = function ( str, meshParams, decodeParams, name, idx, callback ) {
 
 	var MAX_BACKREF = 96;
 
@@ -524,7 +524,7 @@ THREE.UTF8Loader.prototype.decompressMesh2 = function ( str, meshParams, decodeP
 
 };
 
-THREE.UTF8Loader.prototype.downloadMesh = function ( path, name, meshEntry, decodeParams, callback ) {
+UTF8Loader.prototype.downloadMesh = function ( path, name, meshEntry, decodeParams, callback ) {
 
 	var loader = this;
 	var idx = 0;
@@ -571,7 +571,7 @@ THREE.UTF8Loader.prototype.downloadMesh = function ( path, name, meshEntry, deco
 
 };
 
-THREE.UTF8Loader.prototype.downloadMeshes = function ( path, meshUrlMap, decodeParams, callback ) {
+UTF8Loader.prototype.downloadMeshes = function ( path, meshUrlMap, decodeParams, callback ) {
 
 	for ( var url in meshUrlMap ) {
 
@@ -582,7 +582,7 @@ THREE.UTF8Loader.prototype.downloadMeshes = function ( path, meshUrlMap, decodeP
 
 };
 
-THREE.UTF8Loader.prototype.createMeshCallback = function ( materialBaseUrl, loadModelInfo, allDoneCallback ) {
+UTF8Loader.prototype.createMeshCallback = function ( materialBaseUrl, loadModelInfo, allDoneCallback ) {
 
 	var nCompletedUrls = 0;
 	var nExpectedUrls = 0;
@@ -616,7 +616,7 @@ THREE.UTF8Loader.prototype.createMeshCallback = function ( materialBaseUrl, load
 
 	// Create callback for creating mesh parts
 
-	var bufferGeometryCreator = new THREE.UTF8Loader.BufferGeometryCreator();
+	var bufferGeometryCreator = new UTF8Loader.BufferGeometryCreator();
 
 	var meshCallback = function ( name, idx, attribArray, indexArray, bboxen, meshParams ) {
 
@@ -661,14 +661,14 @@ THREE.UTF8Loader.prototype.createMeshCallback = function ( materialBaseUrl, load
 
 };
 
-THREE.UTF8Loader.prototype.downloadModel = function ( geometryBase, materialBase, model, callback ) {
+UTF8Loader.prototype.downloadModel = function ( geometryBase, materialBase, model, callback ) {
 
 	var meshCallback = this.createMeshCallback( materialBase, model, callback );
 	this.downloadMeshes( geometryBase, model.urls, model.decodeParams, meshCallback );
 
 };
 
-THREE.UTF8Loader.prototype.downloadModelJson = function ( jsonUrl, callback, options ) {
+UTF8Loader.prototype.downloadModelJson = function ( jsonUrl, callback, options ) {
 
 	getJsonRequest( jsonUrl, function ( loaded ) {
 
@@ -753,4 +753,4 @@ function addListeners( dom, listeners ) {
 
 }
 
-export default THREE.UTF8Loader;
+export default UTF8Loader;

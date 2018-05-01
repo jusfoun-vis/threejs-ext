@@ -4,15 +4,15 @@ import * as THREE from 'three';
  * @author mrdoob / http://mrdoob.com/
  */
 
-THREE.MD2Loader = function ( manager ) {
+const MD2Loader = function ( manager ) {
 
 	this.manager = ( manager !== undefined ) ? manager : THREE.DefaultLoadingManager;
 
 };
 
-THREE.MD2Loader.prototype = {
+MD2Loader.prototype = {
 
-	constructor: THREE.MD2Loader,
+	constructor: MD2Loader,
 
 	load: function ( url, onLoad, onProgress, onError ) {
 
@@ -312,4 +312,4 @@ THREE.MD2Loader.prototype = {
 
 };
 
-export default THREE.MD2Loader;
+export default MD2Loader;

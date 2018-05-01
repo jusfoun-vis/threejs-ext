@@ -4,16 +4,16 @@ import * as THREE from 'three';
  * @author mrdoob / http://mrdoob.com/
  */
 
-THREE.DDSLoader = function () {
+const DDSLoader = function () {
 
-	this._parser = THREE.DDSLoader.parse;
+	this._parser = DDSLoader.parse;
 
 };
 
-THREE.DDSLoader.prototype = Object.create( THREE.CompressedTextureLoader.prototype );
-THREE.DDSLoader.prototype.constructor = THREE.DDSLoader;
+DDSLoader.prototype = Object.create( THREE.CompressedTextureLoader.prototype );
+DDSLoader.prototype.constructor = DDSLoader;
 
-THREE.DDSLoader.parse = function ( buffer, loadMipmaps ) {
+DDSLoader.parse = function ( buffer, loadMipmaps ) {
 
 	var dds = { mipmaps: [], width: 0, height: 0, format: null, mipmapCount: 1 };
 
@@ -271,4 +271,4 @@ THREE.DDSLoader.parse = function ( buffer, loadMipmaps ) {
 
 };
 
-export default THREE.DDSLoader;
+export default DDSLoader;

@@ -4,15 +4,15 @@ import * as THREE from 'three';
  * @author Virtulous / https://virtulo.us/
  */
 
-THREE.AssimpLoader = function ( manager ) {
+const AssimpLoader = function ( manager ) {
 
 	this.manager = ( manager !== undefined ) ? manager : THREE.DefaultLoadingManager;
 
 };
 
-THREE.AssimpLoader.prototype = {
+AssimpLoader.prototype = {
 
-	constructor: THREE.AssimpLoader,
+	constructor: AssimpLoader,
 
 	crossOrigin: 'Anonymous',
 
@@ -2359,4 +2359,4 @@ THREE.AssimpLoader.prototype = {
 
 };
 
-export default THREE.AssimpLoader;
+export default AssimpLoader;

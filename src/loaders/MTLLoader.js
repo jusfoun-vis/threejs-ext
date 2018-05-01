@@ -6,15 +6,15 @@ import * as THREE from 'three';
  * @author angelxuanchang
  */
 
-THREE.MTLLoader = function ( manager ) {
+const MTLLoader = function ( manager ) {
 
 	this.manager = ( manager !== undefined ) ? manager : THREE.DefaultLoadingManager;
 
 };
 
-THREE.MTLLoader.prototype = {
+MTLLoader.prototype = {
 
-	constructor: THREE.MTLLoader,
+	constructor: MTLLoader,
 
 	/**
 	 * Loads and parses a MTL asset from a URL.
@@ -49,6 +49,7 @@ THREE.MTLLoader.prototype = {
 	 *
 	 * @see setTexturePath
 	 * @param {String} path
+	 * @return {THREE.MTLLoader}
 	 *
 	 * @example
 	 *     mtlLoader.setPath( 'assets/obj/' );
@@ -57,6 +58,7 @@ THREE.MTLLoader.prototype = {
 	setPath: function ( path ) {
 
 		this.path = path;
+		return this;
 
 	},
 
@@ -67,6 +69,7 @@ THREE.MTLLoader.prototype = {
 	 *
 	 * @see setPath
 	 * @param {String} path
+	 * @return {THREE.MTLLoader}
 	 *
 	 * @example
 	 *     mtlLoader.setPath( 'assets/obj/' );
@@ -76,6 +79,7 @@ THREE.MTLLoader.prototype = {
 	setTexturePath: function ( path ) {
 
 		this.texturePath = path;
+		return this;
 
 	},
 
@@ -83,19 +87,21 @@ THREE.MTLLoader.prototype = {
 
 		console.warn( 'THREE.MTLLoader: .setBaseUrl() is deprecated. Use .setTexturePath( path ) for texture path or .setPath( path ) for general base path instead.' );
 
-		this.setTexturePath( path );
+		return this.setTexturePath( path );
 
 	},
 
 	setCrossOrigin: function ( value ) {
 
 		this.crossOrigin = value;
+		return this;
 
 	},
 
 	setMaterialOptions: function ( value ) {
 
 		this.materialOptions = value;
+		return this;
 
 	},
 
@@ -103,7 +109,7 @@ THREE.MTLLoader.prototype = {
 	 * Parses a MTL file.
 	 *
 	 * @param {String} text - Content of MTL file
-	 * @return {THREE.MTLLoader.MaterialCreator}
+	 * @return {MTLLoader.MaterialCreator}
 	 *
 	 * @see setPath setTexturePath
 	 *
@@ -161,7 +167,7 @@ THREE.MTLLoader.prototype = {
 
 		}
 
-		var materialCreator = new THREE.MTLLoader.MaterialCreator( this.texturePath || this.path, this.materialOptions );
+		var materialCreator = new MTLLoader.MaterialCreator( this.texturePath || this.path, this.materialOptions );
 		materialCreator.setCrossOrigin( this.crossOrigin );
 		materialCreator.setManager( this.manager );
 		materialCreator.setMaterials( materialsInfo );
@@ -186,7 +192,7 @@ THREE.MTLLoader.prototype = {
  * @constructor
  */
 
-THREE.MTLLoader.MaterialCreator = function ( baseUrl, options ) {
+MTLLoader.MaterialCreator = function ( baseUrl, options ) {
 
 	this.baseUrl = baseUrl || '';
 	this.options = options;
@@ -200,9 +206,9 @@ THREE.MTLLoader.MaterialCreator = function ( baseUrl, options ) {
 
 };
 
-THREE.MTLLoader.MaterialCreator.prototype = {
+MTLLoader.MaterialCreator.prototype = {
 
-	constructor: THREE.MTLLoader.MaterialCreator,
+	constructor: MTLLoader.MaterialCreator,
 
 	crossOrigin: 'Anonymous',
 
@@ -466,9 +472,9 @@ THREE.MTLLoader.MaterialCreator.prototype = {
 
 					if ( this.options && this.options.invertTrProperty ) n = 1 - n;
 
-					if ( n < 1 ) {
+					if ( n > 0 ) {
 
-						params.opacity = n;
+						params.opacity = 1 - n;
 						params.transparent = true;
 
 					}
@@ -554,4 +560,4 @@ THREE.MTLLoader.MaterialCreator.prototype = {
 
 };
 
-export default THREE.MTLLoader;
+export default MTLLoader;

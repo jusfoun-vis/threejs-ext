@@ -10,7 +10,7 @@ import * as THREE from 'three';
  *
  */
 
-THREE.PCDLoader = function ( manager ) {
+const PCDLoader = function ( manager ) {
 
 	this.manager = ( manager !== undefined ) ? manager : THREE.DefaultLoadingManager;
 	this.littleEndian = true;
@@ -18,9 +18,9 @@ THREE.PCDLoader = function ( manager ) {
 };
 
 
-THREE.PCDLoader.prototype = {
+PCDLoader.prototype = {
 
-	constructor: THREE.PCDLoader,
+	constructor: PCDLoader,
 
 	load: function ( url, onLoad, onProgress, onError ) {
 
@@ -169,6 +169,8 @@ THREE.PCDLoader.prototype = {
 
 			for ( var i = 0, l = lines.length; i < l; i ++ ) {
 
+				if ( lines[ i ] === '' ) continue;
+
 				var line = lines[ i ].split( ' ' );
 
 				if ( offset.x !== undefined ) {
@@ -283,4 +285,4 @@ THREE.PCDLoader.prototype = {
 
 };
 
-export default THREE.PCDLoader;
+export default PCDLoader;

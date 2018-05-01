@@ -1,4 +1,8 @@
 # Change Log
 
+## [v0.92.0]
+feat: 与0.92.0版THREE保持同步。
+feat: 完成THREE空间分离。
+
 ## [v0.1.0]
 init: 初版。

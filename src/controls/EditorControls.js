@@ -7,7 +7,7 @@ import * as THREE from 'three';
  * @author WestLangley / http://github.com/WestLangley
  */
 
-THREE.EditorControls = function ( object, domElement ) {
+const EditorControls = function ( object, domElement ) {
 
 	domElement = ( domElement !== undefined ) ? domElement : document;
 
@@ -40,7 +40,29 @@ THREE.EditorControls = function ( object, domElement ) {
 	this.focus = function ( target ) {
 
 		var box = new THREE.Box3().setFromObject( target );
-		object.lookAt( center.copy( box.getCenter() ) );
+
+		var distance;
+
+		if ( box.isEmpty() === false ) {
+
+			center.copy( box.getCenter() );
+			distance = box.getBoundingSphere().radius;
+
+		} else {
+
+			// Focusing on an Group, AmbientLight, etc
+
+			center.setFromMatrixPosition( target.matrixWorld );
+			distance = 0.1;
+
+		}
+
+		var delta = new THREE.Vector3( 0, 0, 1 );
+		delta.applyQuaternion( object.quaternion );
+		delta.multiplyScalar( distance * 4 );
+
+		object.position.copy( center ).add( delta );
+
 		scope.dispatchEvent( changeEvent );
 
 	};
@@ -179,7 +201,7 @@ THREE.EditorControls = function ( object, domElement ) {
 
 	}
 
-	this.dispose = function() {
+	this.dispose = function () {
 
 		domElement.removeEventListener( 'contextmenu', contextmenu, false );
 		domElement.removeEventListener( 'mousedown', onMouseDown, false );
@@ -289,7 +311,7 @@ THREE.EditorControls = function ( object, domElement ) {
 
 };
 
-THREE.EditorControls.prototype = Object.create( THREE.EventDispatcher.prototype );
-THREE.EditorControls.prototype.constructor = THREE.EditorControls;
+EditorControls.prototype = Object.create( THREE.EventDispatcher.prototype );
+EditorControls.prototype.constructor = EditorControls;
 
-export default THREE.EditorControls;
+export default EditorControls;

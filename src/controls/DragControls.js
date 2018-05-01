@@ -6,7 +6,7 @@ import * as THREE from 'three';
  * Running this will allow you to drag three.js objects around the screen.
  */
 
-THREE.DragControls = function ( _objects, _camera, _domElement ) {
+const DragControls = function ( _objects, _camera, _domElement ) {
 
 	if ( _objects instanceof THREE.Camera ) {
 
@@ -280,7 +280,7 @@ THREE.DragControls = function ( _objects, _camera, _domElement ) {
 
 };
 
-THREE.DragControls.prototype = Object.create( THREE.EventDispatcher.prototype );
-THREE.DragControls.prototype.constructor = THREE.DragControls;
+DragControls.prototype = Object.create( THREE.EventDispatcher.prototype );
+DragControls.prototype.constructor = DragControls;
 
-export default THREE.DragControls;
+export default DragControls;

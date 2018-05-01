@@ -4,7 +4,7 @@ import * as THREE from 'three';
  * @author mrdoob / http://mrdoob.com/
  */
 
-THREE.OBJLoader = ( function () {
+const OBJLoader = ( function () {
 
 	// o object_name | g group_name
 	var object_pattern = /^[og]\s*(.+)?/;
@@ -288,19 +288,17 @@ THREE.OBJLoader = ( function () {
 
 				this.addVertex( ia, ib, ic );
 
-				if ( ua !== undefined ) {
+				if ( ua !== undefined && ua !== '' ) {
 
 					var uvLen = this.uvs.length;
-
 					ia = this.parseUVIndex( ua, uvLen );
 					ib = this.parseUVIndex( ub, uvLen );
 					ic = this.parseUVIndex( uc, uvLen );
-
 					this.addUV( ia, ib, ic );
 
 				}
 
-				if ( na !== undefined ) {
+				if ( na !== undefined && na !== '' ) {
 
 					// Normals are many times the same. If so, skip function call and parseInt.
 					var nLen = this.normals.length;
@@ -395,6 +393,8 @@ THREE.OBJLoader = ( function () {
 		setPath: function ( value ) {
 
 			this.path = value;
+
+			return this;
 
 		},
 
@@ -794,4 +794,4 @@ THREE.OBJLoader = ( function () {
 
 } )();
 
-export default THREE.OBJLoader;
+export default OBJLoader;

@@ -1,6 +1,6 @@
-'use strict';
-
 import * as THREE from 'three';
+
+'use strict';
 
 /**
  * THREE.GCodeLoader is used to load gcode files usually used for 3D printing or CNC applications.
@@ -12,7 +12,7 @@ import * as THREE from 'three';
  * @author tentone
  * @author joewalnes
  */
-THREE.GCodeLoader = function ( manager ) {
+const GCodeLoader = function ( manager ) {
 
 	this.manager = ( manager !== undefined ) ? manager : THREE.DefaultLoadingManager;
 
@@ -20,7 +20,7 @@ THREE.GCodeLoader = function ( manager ) {
 
 };
 
-THREE.GCodeLoader.prototype.load = function ( url, onLoad, onProgress, onError ) {
+GCodeLoader.prototype.load = function ( url, onLoad, onProgress, onError ) {
 
 	var self = this;
 
@@ -33,7 +33,7 @@ THREE.GCodeLoader.prototype.load = function ( url, onLoad, onProgress, onError )
 
 };
 
-THREE.GCodeLoader.prototype.parse = function ( data ) {
+GCodeLoader.prototype.parse = function ( data ) {
 
 	var state = { x: 0, y: 0, z: 0, e: 0, f: 0, extruding: false, relative: false };
 	var layers = [];
@@ -212,10 +212,10 @@ THREE.GCodeLoader.prototype.parse = function ( data ) {
 
 	}
 
-	object.rotation.set( - Math.PI / 2, 0, 0 );
+	object.quaternion.setFromEuler( new THREE.Euler( - Math.PI / 2, 0, 0 ) );
 
 	return object;
 
 };
 
-export default THREE.GCodeLoader;
+export default GCodeLoader;

@@ -7,17 +7,17 @@ import * as THREE from 'three';
 // https://github.com/mrdoob/three.js/issues/5552
 // http://en.wikipedia.org/wiki/RGBE_image_format
 
-THREE.HDRLoader = THREE.RGBELoader = function ( manager ) {
+const RGBELoader = function ( manager ) {
 
 	this.manager = ( manager !== undefined ) ? manager : THREE.DefaultLoadingManager;
 
 };
 
 // extend THREE.DataTextureLoader
-THREE.RGBELoader.prototype = Object.create( THREE.DataTextureLoader.prototype );
+RGBELoader.prototype = Object.create( THREE.DataTextureLoader.prototype );
 
 // adapted from http://www.graphics.cornell.edu/~bjw/rgbe.html
-THREE.RGBELoader.prototype._parser = function ( buffer ) {
+RGBELoader.prototype._parser = function ( buffer ) {
 
 	var
 		/* return codes for rgbe routines */
@@ -347,4 +347,4 @@ THREE.RGBELoader.prototype._parser = function ( buffer ) {
 
 };
 
-export default THREE.RGBELoader;
+export default RGBELoader;

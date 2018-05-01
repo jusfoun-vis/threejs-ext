@@ -5,15 +5,15 @@ import * as THREE from 'three';
  * @author Mugen87 / https://github.com/Mugen87
  */
 
-THREE.PDBLoader = function ( manager ) {
+const PDBLoader = function ( manager ) {
 
 	this.manager = ( manager !== undefined ) ? manager : THREE.DefaultLoadingManager;
 
 };
 
-THREE.PDBLoader.prototype = {
+PDBLoader.prototype = {
 
-	constructor: THREE.PDBLoader,
+	constructor: PDBLoader,
 
 	load: function ( url, onLoad, onProgress, onError ) {
 
@@ -210,4 +210,4 @@ THREE.PDBLoader.prototype = {
 
 };
 
-export default THREE.PDBLoader;
+export default PDBLoader;

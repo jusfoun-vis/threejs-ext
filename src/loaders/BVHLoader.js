@@ -10,7 +10,7 @@ import * as THREE from 'three';
  *
  */
 
-THREE.BVHLoader = function ( manager ) {
+const BVHLoader = function ( manager ) {
 
 	this.manager = ( manager !== undefined ) ? manager : THREE.DefaultLoadingManager;
 
@@ -19,9 +19,9 @@ THREE.BVHLoader = function ( manager ) {
 
 };
 
-THREE.BVHLoader.prototype = {
+BVHLoader.prototype = {
 
-	constructor: THREE.BVHLoader,
+	constructor: BVHLoader,
 
 	load: function ( url, onLoad, onProgress, onError ) {
 
@@ -407,4 +407,4 @@ THREE.BVHLoader.prototype = {
 
 };
 
-export default THREE.BVHLoader;
+export default BVHLoader;

@@ -5,15 +5,15 @@ import * as THREE from 'three';
  * @author Mugen87 / https://github.com/Mugen87
  */
 
-THREE.PlayCanvasLoader = function ( manager ) {
+const PlayCanvasLoader = function ( manager ) {
 
 	this.manager = ( manager !== undefined ) ? manager : THREE.DefaultLoadingManager;
 
 };
 
-THREE.PlayCanvasLoader.prototype = {
+PlayCanvasLoader.prototype = {
 
-	constructor: THREE.PlayCanvasLoader,
+	constructor: PlayCanvasLoader,
 
 	load: function ( url, onLoad, onProgress, onError ) {
 
@@ -142,7 +142,7 @@ THREE.PlayCanvasLoader.prototype = {
 			object.name = data.name;
 
 			object.position.fromArray( data.position );
-			object.rotation.fromArray( data.rotation );
+			object.quaternion.setFromEuler( new THREE.Euler().fromArray( data.rotation ) );
 			object.scale.fromArray( data.scale );
 
 			data._object = object;
@@ -196,4 +196,4 @@ THREE.PlayCanvasLoader.prototype = {
 
 };
 
-export default THREE.PlayCanvasLoader;
+export default PlayCanvasLoader;

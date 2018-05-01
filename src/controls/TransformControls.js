@@ -4,7 +4,7 @@ import * as THREE from 'three';
  * @author arodic / https://github.com/arodic
  */
 
-( function () {
+export default ( function () {
 
 	'use strict';
 
@@ -14,6 +14,7 @@ import * as THREE from 'three';
 
 		this.depthTest = false;
 		this.depthWrite = false;
+		this.fog = false;
 		this.side = THREE.FrontSide;
 		this.transparent = true;
 
@@ -22,7 +23,7 @@ import * as THREE from 'three';
 		this.oldColor = this.color.clone();
 		this.oldOpacity = this.opacity;
 
-		this.highlight = function( highlighted ) {
+		this.highlight = function ( highlighted ) {
 
 			if ( highlighted ) {
 
@@ -50,6 +51,7 @@ import * as THREE from 'three';
 
 		this.depthTest = false;
 		this.depthWrite = false;
+		this.fog = false;
 		this.transparent = true;
 		this.linewidth = 1;
 
@@ -58,7 +60,7 @@ import * as THREE from 'three';
 		this.oldColor = this.color.clone();
 		this.oldOpacity = this.opacity;
 
-		this.highlight = function( highlighted ) {
+		this.highlight = function ( highlighted ) {
 
 			if ( highlighted ) {
 
@@ -83,7 +85,7 @@ import * as THREE from 'three';
 	var pickerMaterial = new GizmoMaterial( { visible: false, transparent: false } );
 
 
-	THREE.TransformGizmo = function () {
+	const TransformGizmo = function () {
 
 		this.init = function () {
 
@@ -103,9 +105,9 @@ import * as THREE from 'three';
 			var planeMaterial = new THREE.MeshBasicMaterial( { visible: false, side: THREE.DoubleSide } );
 
 			var planes = {
-				"XY":   new THREE.Mesh( planeGeometry, planeMaterial ),
-				"YZ":   new THREE.Mesh( planeGeometry, planeMaterial ),
-				"XZ":   new THREE.Mesh( planeGeometry, planeMaterial ),
+				"XY": new THREE.Mesh( planeGeometry, planeMaterial ),
+				"YZ": new THREE.Mesh( planeGeometry, planeMaterial ),
+				"XZ": new THREE.Mesh( planeGeometry, planeMaterial ),
 				"XYZE": new THREE.Mesh( planeGeometry, planeMaterial )
 			};
 
@@ -124,7 +126,7 @@ import * as THREE from 'three';
 
 			//// HANDLES AND PICKERS
 
-			var setupGizmos = function( gizmoMap, parent ) {
+			var setupGizmos = function ( gizmoMap, parent ) {
 
 				for ( var name in gizmoMap ) {
 
@@ -135,6 +137,8 @@ import * as THREE from 'three';
 						var rotation = gizmoMap[ name ][ i ][ 2 ];
 
 						object.name = name;
+
+						object.renderOrder = Infinity; // avoid being hidden by other transparent objects
 
 						if ( position ) object.position.set( position[ 0 ], position[ 1 ], position[ 2 ] );
 						if ( rotation ) object.rotation.set( rotation[ 0 ], rotation[ 1 ], rotation[ 2 ] );
@@ -174,7 +178,7 @@ import * as THREE from 'three';
 
 		this.highlight = function ( axis ) {
 
-			this.traverse( function( child ) {
+			this.traverse( function ( child ) {
 
 				if ( child.material && child.material.highlight ) {
 
@@ -196,16 +200,16 @@ import * as THREE from 'three';
 
 	};
 
-	THREE.TransformGizmo.prototype = Object.create( THREE.Object3D.prototype );
-	THREE.TransformGizmo.prototype.constructor = THREE.TransformGizmo;
+	TransformGizmo.prototype = Object.create( THREE.Object3D.prototype );
+	TransformGizmo.prototype.constructor = TransformGizmo;
 
-	THREE.TransformGizmo.prototype.update = function ( rotation, eye ) {
+	TransformGizmo.prototype.update = function ( rotation, eye ) {
 
 		var vec1 = new THREE.Vector3( 0, 0, 0 );
 		var vec2 = new THREE.Vector3( 0, 1, 0 );
 		var lookAtMatrix = new THREE.Matrix4();
 
-		this.traverse( function( child ) {
+		this.traverse( function ( child ) {
 
 			if ( child.name.search( "E" ) !== - 1 ) {
 
@@ -221,9 +225,9 @@ import * as THREE from 'three';
 
 	};
 
-	THREE.TransformGizmoTranslate = function () {
+	const TransformGizmoTranslate = function () {
 
-		THREE.TransformGizmo.call( this );
+		TransformGizmo.call( this );
 
 		var arrowGeometry = new THREE.Geometry();
 		var mesh = new THREE.Mesh( new THREE.CylinderGeometry( 0, 0.05, 0.2, 12, 1, false ) );
@@ -233,13 +237,13 @@ import * as THREE from 'three';
 		arrowGeometry.merge( mesh.geometry, mesh.matrix );
 
 		var lineXGeometry = new THREE.BufferGeometry();
-		lineXGeometry.addAttribute( 'position', new THREE.Float32BufferAttribute( [ 0, 0, 0,  1, 0, 0 ], 3 ) );
+		lineXGeometry.addAttribute( 'position', new THREE.Float32BufferAttribute( [ 0, 0, 0, 1, 0, 0 ], 3 ) );
 
 		var lineYGeometry = new THREE.BufferGeometry();
-		lineYGeometry.addAttribute( 'position', new THREE.Float32BufferAttribute( [ 0, 0, 0,  0, 1, 0 ], 3 ) );
+		lineYGeometry.addAttribute( 'position', new THREE.Float32BufferAttribute( [ 0, 0, 0, 0, 1, 0 ], 3 ) );
 
 		var lineZGeometry = new THREE.BufferGeometry();
-		lineZGeometry.addAttribute( 'position', new THREE.Float32BufferAttribute( [ 0, 0, 0,  0, 0, 1 ], 3 ) );
+		lineZGeometry.addAttribute( 'position', new THREE.Float32BufferAttribute( [ 0, 0, 0, 0, 0, 1 ], 3 ) );
 
 		this.handleGizmos = {
 
@@ -351,12 +355,12 @@ import * as THREE from 'three';
 
 	};
 
-	THREE.TransformGizmoTranslate.prototype = Object.create( THREE.TransformGizmo.prototype );
-	THREE.TransformGizmoTranslate.prototype.constructor = THREE.TransformGizmoTranslate;
+	TransformGizmoTranslate.prototype = Object.create( TransformGizmo.prototype );
+	TransformGizmoTranslate.prototype.constructor = TransformGizmoTranslate;
 
-	THREE.TransformGizmoRotate = function () {
+	const TransformGizmoRotate = function () {
 
-		THREE.TransformGizmo.call( this );
+		TransformGizmo.call( this );
 
 		var CircleGeometry = function ( radius, facing, arc ) {
 
@@ -420,10 +424,12 @@ import * as THREE from 'three';
 			],
 
 			XYZE: [
-				[ new THREE.Mesh() ]// TODO
+				[ new THREE.Mesh( new THREE.TorusBufferGeometry( 1, 0.12, 2, 24 ), pickerMaterial ) ]
 			]
 
 		};
+
+		this.pickerGizmos.XYZE[ 0 ][ 0 ].visible = false; // disable XYZE picker gizmo
 
 		this.setActivePlane = function ( axis ) {
 
@@ -439,7 +445,7 @@ import * as THREE from 'three';
 
 		this.update = function ( rotation, eye2 ) {
 
-			THREE.TransformGizmo.prototype.update.apply( this, arguments );
+			TransformGizmo.prototype.update.apply( this, arguments );
 
 			var tempMatrix = new THREE.Matrix4();
 			var worldRotation = new THREE.Euler( 0, 0, 1 );
@@ -494,12 +500,12 @@ import * as THREE from 'three';
 
 	};
 
-	THREE.TransformGizmoRotate.prototype = Object.create( THREE.TransformGizmo.prototype );
-	THREE.TransformGizmoRotate.prototype.constructor = THREE.TransformGizmoRotate;
+	TransformGizmoRotate.prototype = Object.create( TransformGizmo.prototype );
+	TransformGizmoRotate.prototype.constructor = TransformGizmoRotate;
 
-	THREE.TransformGizmoScale = function () {
+	const TransformGizmoScale = function () {
 
-		THREE.TransformGizmo.call( this );
+		TransformGizmo.call( this );
 
 		var arrowGeometry = new THREE.Geometry();
 		var mesh = new THREE.Mesh( new THREE.BoxGeometry( 0.125, 0.125, 0.125 ) );
@@ -594,10 +600,10 @@ import * as THREE from 'three';
 
 	};
 
-	THREE.TransformGizmoScale.prototype = Object.create( THREE.TransformGizmo.prototype );
-	THREE.TransformGizmoScale.prototype.constructor = THREE.TransformGizmoScale;
+	TransformGizmoScale.prototype = Object.create( TransformGizmo.prototype );
+	TransformGizmoScale.prototype.constructor = TransformGizmoScale;
 
-	THREE.TransformControls = function ( camera, domElement ) {
+	const TransformControls = function ( camera, domElement ) {
 
 		// TODO: Make non-uniform scale and rotate play nice in hierarchies
 		// TODO: ADD RXYZ contol
@@ -620,9 +626,9 @@ import * as THREE from 'three';
 		var _dragging = false;
 		var _gizmo = {
 
-			"translate": new THREE.TransformGizmoTranslate(),
-			"rotate": new THREE.TransformGizmoRotate(),
-			"scale": new THREE.TransformGizmoScale()
+			"translate": new TransformGizmoTranslate(),
+			"rotate": new TransformGizmoRotate(),
+			"scale": new TransformGizmoScale()
 		};
 
 		for ( var type in _gizmo ) {
@@ -669,12 +675,12 @@ import * as THREE from 'three';
 		var oldScale = new THREE.Vector3();
 		var oldRotationMatrix = new THREE.Matrix4();
 
-		var parentRotationMatrix  = new THREE.Matrix4();
+		var parentRotationMatrix = new THREE.Matrix4();
 		var parentScale = new THREE.Vector3();
 
 		var worldPosition = new THREE.Vector3();
 		var worldRotation = new THREE.Euler();
-		var worldRotationMatrix  = new THREE.Matrix4();
+		var worldRotationMatrix = new THREE.Matrix4();
 		var camPosition = new THREE.Vector3();
 		var camRotation = new THREE.Euler();
 
@@ -858,9 +864,9 @@ import * as THREE from 'three';
 					event.preventDefault();
 					event.stopPropagation();
 
-					scope.dispatchEvent( mouseDownEvent );
-
 					scope.axis = intersect.object.name;
+
+					scope.dispatchEvent( mouseDownEvent );
 
 					scope.update();
 
@@ -1145,9 +1151,9 @@ import * as THREE from 'three';
 
 	};
 
-	THREE.TransformControls.prototype = Object.create( THREE.Object3D.prototype );
-	THREE.TransformControls.prototype.constructor = THREE.TransformControls;
+	TransformControls.prototype = Object.create( THREE.Object3D.prototype );
+	TransformControls.prototype.constructor = TransformControls;
+
+	return TransformControls;
 
 }() );
-
-export default THREE.TransformControls;

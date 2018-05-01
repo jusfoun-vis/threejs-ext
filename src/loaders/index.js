@@ -8,6 +8,8 @@ import BinaryLoader from './BinaryLoader';
 import BVHLoader from './BVHLoader';
 import ColladaLoader from './ColladaLoader';
 import DDSLoader from './DDSLoader';
+import DRACOLoader from './DRACOLoader';
+import EquiangularToCubeGenerator from './EquiangularToCubeGenerator';
 import EXRLoader from './EXRLoader';
 import FBXLoader from './FBXLoader';
 import GCodeLoader from './GCodeLoader';
@@ -35,8 +37,9 @@ import SVGLoader from './SVGLoader';
 import TDSLoader from './TDSLoader';
 import TGALoader from './TGALoader';
 import TTFLoader from './TTFLoader';
-import UTF8Loader from './UTF8Loader';
 import VRMLLoader from './VRMLLoader';
+import VRMLoader from './VRMLoader';
+import UTF8Loader from './UTF8Loader';
 import VTKLoader from './VTKLoader';
 import XLoader from './XLoader';
 
@@ -51,6 +54,8 @@ export {
   BVHLoader,
   ColladaLoader,
   DDSLoader,
+  DRACOLoader,
+  EquiangularToCubeGenerator,
   EXRLoader,
   FBXLoader,
   GCodeLoader,
@@ -78,8 +83,9 @@ export {
   TDSLoader,
   TGALoader,
   TTFLoader,
-  UTF8Loader,
   VRMLLoader,
+  VRMLoader,
+  UTF8Loader,
   VTKLoader,
   XLoader
-}
+};

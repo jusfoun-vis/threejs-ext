@@ -6,7 +6,7 @@ import * as THREE from 'three';
  * @author paulirish / http://paulirish.com/
  */
 
-THREE.FirstPersonControls = function ( object, domElement ) {
+const FirstPersonControls = function ( object, domElement ) {
 
 	this.object = object;
 	this.target = new THREE.Vector3( 0, 0, 0 );
@@ -186,7 +186,7 @@ THREE.FirstPersonControls = function ( object, domElement ) {
 
 	};
 
-	this.update = function( delta ) {
+	this.update = function ( delta ) {
 
 		if ( this.enabled === false ) return;
 
@@ -261,7 +261,7 @@ THREE.FirstPersonControls = function ( object, domElement ) {
 
 	}
 
-	this.dispose = function() {
+	this.dispose = function () {
 
 		this.domElement.removeEventListener( 'contextmenu', contextmenu, false );
 		this.domElement.removeEventListener( 'mousedown', _onMouseDown, false );
@@ -301,4 +301,4 @@ THREE.FirstPersonControls = function ( object, domElement ) {
 
 };
 
-export default THREE.FirstPersonControls;
+export default FirstPersonControls;

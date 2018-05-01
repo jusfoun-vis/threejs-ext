@@ -10,19 +10,19 @@ import * as THREE from 'three';
  *   TODO : implement loadMipmaps option
  */
 
-THREE.PVRLoader = function ( manager ) {
+const PVRLoader = function ( manager ) {
 
 	this.manager = ( manager !== undefined ) ? manager : THREE.DefaultLoadingManager;
 
-	this._parser = THREE.PVRLoader.parse;
+	this._parser = PVRLoader.parse;
 
 };
 
-THREE.PVRLoader.prototype = Object.create( THREE.CompressedTextureLoader.prototype );
-THREE.PVRLoader.prototype.constructor = THREE.PVRLoader;
+PVRLoader.prototype = Object.create( THREE.CompressedTextureLoader.prototype );
+PVRLoader.prototype.constructor = PVRLoader;
 
 
-THREE.PVRLoader.parse = function ( buffer, loadMipmaps ) {
+PVRLoader.parse = function ( buffer, loadMipmaps ) {
 
 	var headerLengthInt = 13;
 	var header = new Uint32Array( buffer, 0, headerLengthInt );
@@ -37,13 +37,13 @@ THREE.PVRLoader.parse = function ( buffer, loadMipmaps ) {
 
 		// PVR v3
 
-		return THREE.PVRLoader._parseV3( pvrDatas );
+		return PVRLoader._parseV3( pvrDatas );
 
 	} else if ( header[ 11 ] === 0x21525650 ) {
 
 		// PVR v2
 
-		return THREE.PVRLoader._parseV2( pvrDatas );
+		return PVRLoader._parseV2( pvrDatas );
 
 	} else {
 
@@ -53,7 +53,7 @@ THREE.PVRLoader.parse = function ( buffer, loadMipmaps ) {
 
 };
 
-THREE.PVRLoader._parseV3 = function ( pvrDatas ) {
+PVRLoader._parseV3 = function ( pvrDatas ) {
 
 	var header = pvrDatas.header;
 	var bpp, format;
@@ -103,11 +103,11 @@ THREE.PVRLoader._parseV3 = function ( pvrDatas ) {
 	pvrDatas.numMipmaps = numMipmaps;
 	pvrDatas.isCubemap 	= ( numFaces === 6 );
 
-	return THREE.PVRLoader._extract( pvrDatas );
+	return PVRLoader._extract( pvrDatas );
 
 };
 
-THREE.PVRLoader._parseV2 = function ( pvrDatas ) {
+PVRLoader._parseV2 = function ( pvrDatas ) {
 
 	var header = pvrDatas.header;
 
@@ -163,12 +163,12 @@ THREE.PVRLoader._parseV2 = function ( pvrDatas ) {
 	// it juste a pvr containing 6 surface (no explicit cubemap type)
 	pvrDatas.isCubemap 	= ( numSurfs === 6 );
 
-	return THREE.PVRLoader._extract( pvrDatas );
+	return PVRLoader._extract( pvrDatas );
 
 };
 
 
-THREE.PVRLoader._extract = function ( pvrDatas ) {
+PVRLoader._extract = function ( pvrDatas ) {
 
 	var pvr = {
 		mipmaps: [],
@@ -247,4 +247,4 @@ THREE.PVRLoader._extract = function ( pvrDatas ) {
 
 };
 
-export default THREE.PVRLoader;
+export default PVRLoader;

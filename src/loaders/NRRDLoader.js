@@ -1,15 +1,16 @@
 import * as THREE from 'three';
+import Volume from '../uncategories/Volume';
 
-THREE.NRRDLoader = function ( manager ) {
+const NRRDLoader = function ( manager ) {
 
 	this.manager = ( manager !== undefined ) ? manager : THREE.DefaultLoadingManager;
 
 
 };
 
-THREE.NRRDLoader.prototype = {
+NRRDLoader.prototype = {
 
-	constructor: THREE.NRRDLoader,
+	constructor: NRRDLoader,
 
 	load: function ( url, onLoad, onProgress, onError ) {
 
@@ -311,7 +312,7 @@ THREE.NRRDLoader.prototype = {
 		// .. let's use the underlying array buffer
 		_data = _data.buffer;
 
-		var volume = new THREE.Volume();
+		var volume = new Volume();
 		volume.header = headerObject;
 		//
 		// parse the (unzipped) data to a datastream of the correct type
@@ -592,4 +593,4 @@ THREE.NRRDLoader.prototype = {
 
 };
 
-export default THREE.NRRDLoader;
+export default NRRDLoader;

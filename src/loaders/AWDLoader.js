@@ -5,7 +5,7 @@ import * as THREE from 'three';
  * Date: 09/12/2013 17:21
  */
 
-( function () {
+export default ( function () {
 
 	var UNCOMPRESSED = 0,
 		DEFLATE = 1,
@@ -78,7 +78,7 @@ import * as THREE from 'three';
 		}
 	};
 
-	THREE.AWDLoader = function ( manager ) {
+	const AWDLoader = function ( manager ) {
 
 		this.manager = ( manager !== undefined ) ? manager : THREE.DefaultLoadingManager;
 
@@ -106,9 +106,9 @@ import * as THREE from 'three';
 
 	};
 
-	THREE.AWDLoader.prototype = {
+	AWDLoader.prototype = {
 
-		constructor: THREE.AWDLoader,
+		constructor: AWDLoader,
 
 		load: function ( url, onLoad, onProgress, onError ) {
 
@@ -1230,6 +1230,5 @@ import * as THREE from 'three';
 
 	};
 
+	return AWDLoader;
 } )();
-
-export default THREE.AWDLoader;

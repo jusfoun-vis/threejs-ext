@@ -4,16 +4,16 @@ import * as THREE from 'three';
  * @author technohippy / https://github.com/technohippy
  */
 
-THREE.ThreeMFLoader = function ( manager ) {
+const ThreeMFLoader = function ( manager ) {
 
 	this.manager = ( manager !== undefined ) ? manager : THREE.DefaultLoadingManager;
 	this.availableExtensions = [];
 
 };
 
-THREE.ThreeMFLoader.prototype = {
+ThreeMFLoader.prototype = {
 
-	constructor: THREE.ThreeMFLoader,
+	constructor: ThreeMFLoader,
 
 	load: function ( url, onLoad, onProgress, onError ) {
 
@@ -607,4 +607,4 @@ THREE.ThreeMFLoader.prototype = {
 
 };
 
-export default THREE.ThreeMFLoader;
+export default ThreeMFLoader;

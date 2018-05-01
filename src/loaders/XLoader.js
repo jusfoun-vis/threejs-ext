@@ -1,12 +1,12 @@
 import * as THREE from 'three';
 
-( function ( global, factory ) {
-
-	typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
-		typeof define === 'function' && define.amd ? define( factory ) :
-			( global.THREE = global.THREE || {}, global.THREE.XLoader = factory() );
-
-}( this, ( function () {
+// ( function ( global, factory ) {
+//
+// 	typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
+// 		typeof define === 'function' && define.amd ? define( factory ) :
+// 			( global.THREE = global.THREE || {}, global.THREE.XLoader = factory() );
+//
+// }( this, ( function () {
 
 	'use strict';
 
@@ -210,7 +210,7 @@ import * as THREE from 'three';
 			classCallCheck( this, XLoader );
 
 			this.debug = false;
-			this.manager = manager !== undefined ? manager : new THREE.DefaultLoadingManager();
+			this.manager = manager !== undefined ? manager : THREE.DefaultLoadingManager;
 			this.texloader = texloader !== undefined ? texloader : new THREE.TextureLoader();
 			this.url = "";
 			this.baseDir = "";
@@ -1589,8 +1589,8 @@ import * as THREE from 'three';
 
 	}();
 
-	return XLoader;
+// 	return XLoader;
+//
+// } ) ) );
 
-} ) ) );
-
-export default THREE.XLoader;
+export default XLoader;

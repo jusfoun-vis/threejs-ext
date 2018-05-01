@@ -5,7 +5,7 @@ import * as THREE from 'three';
  * @author mrdoob / http://mrdoob.com
  */
 
-THREE.VRControls = function ( object, onError ) {
+const VRControls = function ( object, onError ) {
 
 	var scope = this;
 
@@ -150,4 +150,4 @@ THREE.VRControls = function ( object, onError ) {
 
 };
 
-export default THREE.VRControls;
+export default VRControls;

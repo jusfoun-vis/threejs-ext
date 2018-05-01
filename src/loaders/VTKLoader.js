@@ -11,13 +11,13 @@ import * as THREE from 'three';
  * @author Sriram Somasundharam https://github.com/raamssundar
  */
 
-THREE.VTKLoader = function ( manager ) {
+const VTKLoader = function ( manager ) {
 
 	this.manager = ( manager !== undefined ) ? manager : THREE.DefaultLoadingManager;
 
 };
 
-Object.assign( THREE.VTKLoader.prototype, THREE.EventDispatcher.prototype, {
+Object.assign( VTKLoader.prototype, THREE.EventDispatcher.prototype, {
 
 	load: function ( url, onLoad, onProgress, onError ) {
 
@@ -1208,4 +1208,4 @@ Object.assign( THREE.VTKLoader.prototype, THREE.EventDispatcher.prototype, {
 
 } );
 
-export default THREE.VTKLoader;
+export default VTKLoader;

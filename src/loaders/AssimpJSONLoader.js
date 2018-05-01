@@ -13,15 +13,15 @@ import * as THREE from 'three';
  * See webgl_loader_assimp2json example.
  */
 
-THREE.AssimpJSONLoader = function ( manager ) {
+const AssimpJSONLoader = function ( manager ) {
 
 	this.manager = ( manager !== undefined ) ? manager : THREE.DefaultLoadingManager;
 
 };
 
-THREE.AssimpJSONLoader.prototype = {
+AssimpJSONLoader.prototype = {
 
-	constructor: THREE.AssimpJSONLoader,
+	constructor: AssimpJSONLoader,
 
 	crossOrigin: 'Anonymous',
 
@@ -272,4 +272,4 @@ THREE.AssimpJSONLoader.prototype = {
 
 };
 
-export default THREE.AssimpJSONLoader;
+export default AssimpJSONLoader;

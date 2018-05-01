@@ -9,16 +9,16 @@ import * as THREE from 'three';
  * to create THREE.Font objects.
  */
 
-THREE.TTFLoader = function ( manager ) {
+const TTFLoader = function ( manager ) {
 
 	this.manager = ( manager !== undefined ) ? manager : THREE.DefaultLoadingManager;
 	this.reversed = false;
 
 };
 
-THREE.TTFLoader.prototype = {
+TTFLoader.prototype = {
 
-	constructor: THREE.TTFLoader,
+	constructor: TTFLoader,
 
 	load: function ( url, onLoad, onProgress, onError ) {
 
@@ -193,4 +193,4 @@ THREE.TTFLoader.prototype = {
 
 };
 
-export default THREE.TTFLoader;
+export default TTFLoader;

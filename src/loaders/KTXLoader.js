@@ -10,16 +10,16 @@ import * as THREE from 'three';
  */
 
 
-THREE.KTXLoader = function () {
+const KTXLoader = function () {
 
-	this._parser = THREE.KTXLoader.parse;
+	this._parser = KTXLoader.parse;
 
 };
 
-THREE.KTXLoader.prototype = Object.create( THREE.CompressedTextureLoader.prototype );
-THREE.KTXLoader.prototype.constructor = THREE.KTXLoader;
+KTXLoader.prototype = Object.create( THREE.CompressedTextureLoader.prototype );
+KTXLoader.prototype.constructor = KTXLoader;
 
-THREE.KTXLoader.parse = function ( buffer, loadMipmaps ) {
+KTXLoader.parse = function ( buffer, loadMipmaps ) {
 
 	var ktx = new KhronosTextureContainer( buffer, 1 );
 
@@ -173,4 +173,4 @@ var KhronosTextureContainer = ( function () {
 
 }() );
 
-export default THREE.KTXLoader();
+export default KTXLoader;

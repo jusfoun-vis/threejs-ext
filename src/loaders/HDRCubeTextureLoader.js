@@ -1,19 +1,20 @@
 import * as THREE from 'three';
+import RGBELoader from './RGBELoader';
 
 /**
 * @author Prashant Sharma / spidersharma03
 * @author Ben Houston / http://clara.io / bhouston
 */
 
-THREE.HDRCubeTextureLoader = function ( manager ) {
+const HDRCubeTextureLoader = function ( manager ) {
 
 	this.manager = ( manager !== undefined ) ? manager : THREE.DefaultLoadingManager;
 	// override in sub classes
-	this.hdrLoader = new THREE.RGBELoader();
+	this.hdrLoader = new RGBELoader();
 
 };
 
-THREE.HDRCubeTextureLoader.prototype.load = function ( type, urls, onLoad, onProgress, onError ) {
+HDRCubeTextureLoader.prototype.load = function ( type, urls, onLoad, onProgress, onError ) {
 
 	var RGBEByteToRGBFloat = function ( sourceArray, sourceOffset, destArray, destOffset ) {
 
@@ -187,4 +188,4 @@ THREE.HDRCubeTextureLoader.prototype.load = function ( type, urls, onLoad, onPro
 
 };
 
-export default THREE.HDRCubeTextureLoader;
+export default HDRCubeTextureLoader;

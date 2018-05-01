@@ -7,7 +7,7 @@ import * as THREE from 'three';
  * @author Max Smolens / https://github.com/msmolens
  */
 
-THREE.OrthographicTrackballControls = function ( object, domElement ) {
+const OrthographicTrackballControls = function ( object, domElement ) {
 
 	var _this = this;
 	var STATE = { NONE: - 1, ROTATE: 0, ZOOM: 1, PAN: 2, TOUCH_ROTATE: 3, TOUCH_ZOOM_PAN: 4 };
@@ -634,7 +634,7 @@ THREE.OrthographicTrackballControls = function ( object, domElement ) {
 
 };
 
-THREE.OrthographicTrackballControls.prototype = Object.create( THREE.EventDispatcher.prototype );
-THREE.OrthographicTrackballControls.prototype.constructor = THREE.OrthographicTrackballControls;
+OrthographicTrackballControls.prototype = Object.create( THREE.EventDispatcher.prototype );
+OrthographicTrackballControls.prototype.constructor = OrthographicTrackballControls;
 
-export default THREE.OrthographicTrackballControls;
+export default OrthographicTrackballControls;

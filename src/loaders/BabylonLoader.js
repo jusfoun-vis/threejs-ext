@@ -5,15 +5,15 @@ import * as THREE from 'three';
  * @author Mugen87 / https://github.com/Mugen87
  */
 
-THREE.BabylonLoader = function ( manager ) {
+const BabylonLoader = function ( manager ) {
 
 	this.manager = ( manager !== undefined ) ? manager : THREE.DefaultLoadingManager;
 
 };
 
-THREE.BabylonLoader.prototype = {
+BabylonLoader.prototype = {
 
-	constructor: THREE.BabylonLoader,
+	constructor: BabylonLoader,
 
 	load: function ( url, onLoad, onProgress, onError ) {
 
@@ -248,4 +248,4 @@ THREE.BabylonLoader.prototype = {
 
 };
 
-export default THREE.BabylonLoader;
+export default BabylonLoader;

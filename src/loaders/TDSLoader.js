@@ -1,3 +1,5 @@
+import * as THREE from 'three';
+
 /*
  * Autodesk 3DS threee.js file loader, based on lib3ds.
  *
@@ -11,9 +13,7 @@
 
 'use strict';
 
-import * as THREE from 'three';
-
-THREE.TDSLoader = function ( manager ) {
+const TDSLoader = function ( manager ) {
 
 	this.manager = ( manager !== undefined ) ? manager : THREE.DefaultLoadingManager;
 	this.debug = false;
@@ -26,9 +26,9 @@ THREE.TDSLoader = function ( manager ) {
 
 };
 
-THREE.TDSLoader.prototype = {
+TDSLoader.prototype = {
 
-	constructor: THREE.TDSLoader,
+	constructor: TDSLoader,
 
 	/**
 	 * Load 3ds file from url.
@@ -1143,4 +1143,4 @@ var VIEWPORT_DATA_3 = 0x7012;
 var VIEWPORT_SIZE = 0x7020;
 var NETWORK_VIEW = 0x7030;
 
-export default THREE.TDSLoader;
+export default TDSLoader;

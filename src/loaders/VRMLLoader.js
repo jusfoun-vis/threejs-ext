@@ -4,15 +4,15 @@ import * as THREE from 'three';
  * @author mrdoob / http://mrdoob.com/
  */
 
-THREE.VRMLLoader = function ( manager ) {
+const VRMLLoader = function ( manager ) {
 
 	this.manager = ( manager !== undefined ) ? manager : THREE.DefaultLoadingManager;
 
 };
 
-THREE.VRMLLoader.prototype = {
+VRMLLoader.prototype = {
 
-	constructor: THREE.VRMLLoader,
+	constructor: VRMLLoader,
 
 	// for IndexedFaceSet support
 	isRecordingPoints: false,
@@ -55,12 +55,6 @@ THREE.VRMLLoader.prototype = {
 
 		var textureLoader = new THREE.TextureLoader( this.manager );
 		textureLoader.setCrossOrigin( this.crossOrigin );
-
-		function parseV1() {
-
-			console.warn( 'THREE.VRMLLoader: V1.0 not supported yet.' );
-
-		}
 
 		function parseV2( lines, scene ) {
 
@@ -1105,7 +1099,7 @@ THREE.VRMLLoader.prototype = {
 
 		if ( /V1.0/.exec( header ) ) {
 
-			parseV1( lines, scene );
+			console.warn( 'THREE.VRMLLoader: V1.0 not supported yet.' );
 
 		} else if ( /V2.0/.exec( header ) ) {
 
@@ -1119,4 +1113,4 @@ THREE.VRMLLoader.prototype = {
 
 };
 
-export default THREE.VRMLLoader;
+export default VRMLLoader;

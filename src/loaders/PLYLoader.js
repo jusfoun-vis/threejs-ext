@@ -29,7 +29,7 @@ import * as THREE from 'three';
  */
 
 
-THREE.PLYLoader = function ( manager ) {
+const PLYLoader = function ( manager ) {
 
 	this.manager = ( manager !== undefined ) ? manager : THREE.DefaultLoadingManager;
 
@@ -37,9 +37,9 @@ THREE.PLYLoader = function ( manager ) {
 
 };
 
-THREE.PLYLoader.prototype = {
+PLYLoader.prototype = {
 
-	constructor: THREE.PLYLoader,
+	constructor: PLYLoader,
 
 	load: function ( url, onLoad, onProgress, onError ) {
 
@@ -480,4 +480,4 @@ THREE.PLYLoader.prototype = {
 
 };
 
-export default THREE.PLYLoader;
+export default PLYLoader;

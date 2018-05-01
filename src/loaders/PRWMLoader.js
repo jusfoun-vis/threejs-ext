@@ -5,7 +5,7 @@ import * as THREE from 'three';
  * See https://github.com/kchapelier/PRWM for more informations about this file format
  */
 
-( function ( THREE ) {
+export default ( function () {
 
 	'use strict';
 
@@ -226,15 +226,15 @@ import * as THREE from 'three';
 
 	// Define the public interface
 
-	THREE.PRWMLoader = function PRWMLoader( manager ) {
+	const PRWMLoader = function PRWMLoader( manager ) {
 
 		this.manager = ( manager !== undefined ) ? manager : THREE.DefaultLoadingManager;
 
 	};
 
-	THREE.PRWMLoader.prototype = {
+	PRWMLoader.prototype = {
 
-		constructor: THREE.PRWMLoader,
+		constructor: PRWMLoader,
 
 		load: function ( url, onLoad, onProgress, onError ) {
 
@@ -284,12 +284,12 @@ import * as THREE from 'three';
 
 	};
 
-	THREE.PRWMLoader.isBigEndianPlatform = function () {
+	PRWMLoader.isBigEndianPlatform = function () {
 
 		return isBigEndianPlatform();
 
 	};
 
-} )( THREE );
+	return PRWMLoader;
 
-export default THREE.PRWMLoader;
+} )();

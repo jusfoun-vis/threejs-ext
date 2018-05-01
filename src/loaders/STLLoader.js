@@ -32,15 +32,15 @@ import * as THREE from 'three';
  */
 
 
-THREE.STLLoader = function ( manager ) {
+const STLLoader = function ( manager ) {
 
 	this.manager = ( manager !== undefined ) ? manager : THREE.DefaultLoadingManager;
 
 };
 
-THREE.STLLoader.prototype = {
+STLLoader.prototype = {
 
-	constructor: THREE.STLLoader,
+	constructor: STLLoader,
 
 	load: function ( url, onLoad, onProgress, onError ) {
 
@@ -214,7 +214,7 @@ THREE.STLLoader.prototype = {
 			var patternFace = /facet([\s\S]*?)endfacet/g;
 			var faceCounter = 0;
 
-			var patternFloat = /[\s]+([+-]?(?:\d+.\d+|\d+.|\d+|.\d+)(?:[eE][+-]?\d+)?)/.source;
+			var patternFloat = /[\s]+([+-]?(?:\d*)(?:\.\d*)?(?:[eE][+-]?\d+)?)/.source;
 			var patternVertex = new RegExp( 'vertex' + patternFloat + patternFloat + patternFloat, 'g' );
 			var patternNormal = new RegExp( 'normal' + patternFloat + patternFloat + patternFloat, 'g' );
 
@@ -318,4 +318,4 @@ THREE.STLLoader.prototype = {
 
 };
 
-export default THREE.STLLoader;
+export default STLLoader;

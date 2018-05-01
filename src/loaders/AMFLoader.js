@@ -20,15 +20,15 @@ import * as THREE from 'three';
  *
  */
 
-THREE.AMFLoader = function ( manager ) {
+const AMFLoader = function ( manager ) {
 
 	this.manager = ( manager !== undefined ) ? manager : THREE.DefaultLoadingManager;
 
 };
 
-THREE.AMFLoader.prototype = {
+AMFLoader.prototype = {
 
-	constructor: THREE.AMFLoader,
+	constructor: AMFLoader,
 
 	load: function ( url, onLoad, onProgress, onError ) {
 
@@ -488,4 +488,4 @@ THREE.AMFLoader.prototype = {
 
 };
 
-export default THREE.AMFLoader;
+export default AMFLoader;

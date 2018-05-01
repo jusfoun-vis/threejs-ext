@@ -6,15 +6,15 @@ import * as THREE from 'three';
  * @author takahirox / https://github.com/takahirox/
  */
 
-THREE.TGALoader = function ( manager ) {
+const TGALoader = function ( manager ) {
 
 	this.manager = ( manager !== undefined ) ? manager : THREE.DefaultLoadingManager;
 
 };
 
-THREE.TGALoader.prototype = {
+TGALoader.prototype = {
 
-	constructor: THREE.TGALoader,
+	constructor: TGALoader,
 
 	load: function ( url, onLoad, onProgress, onError ) {
 
@@ -541,4 +541,4 @@ THREE.TGALoader.prototype = {
 
 };
 
-export default THREE.TGALoader;
+export default TGALoader;

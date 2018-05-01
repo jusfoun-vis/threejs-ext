@@ -1,4 +1,5 @@
 import * as THREE from 'three';
+import * as MMDParser from 'mmd-parser';
 
 /**
  * @author takahiro / https://github.com/takahirox
@@ -39,7 +40,7 @@ import * as THREE from 'three';
  *  - shadow support.
  */
 
-THREE.MMDLoader = function ( manager ) {
+const MMDLoader = function ( manager ) {
 
 	THREE.Loader.call( this );
 	this.manager = ( manager !== undefined ) ? manager : THREE.DefaultLoadingManager;
@@ -48,8 +49,8 @@ THREE.MMDLoader = function ( manager ) {
 
 };
 
-THREE.MMDLoader.prototype = Object.create( THREE.Loader.prototype );
-THREE.MMDLoader.prototype.constructor = THREE.MMDLoader;
+MMDLoader.prototype = Object.create( THREE.Loader.prototype );
+MMDLoader.prototype.constructor = MMDLoader;
 
 /*
  * base64 encoded defalut toon textures toon00.bmp - toon10.bmp
@@ -57,7 +58,7 @@ THREE.MMDLoader.prototype.constructor = THREE.MMDLoader;
  *
  * This idea is from http://www20.atpages.jp/katwat/three.js_r58/examples/mytest37/mmd.three.js
  */
-THREE.MMDLoader.prototype.defaultToonTextures = [
+MMDLoader.prototype.defaultToonTextures = [
 	'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAL0lEQVRYR+3QQREAAAzCsOFfNJPBJ1XQS9r2hsUAAQIECBAgQIAAAQIECBAgsBZ4MUx/ofm2I/kAAAAASUVORK5CYII=',
 	'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAN0lEQVRYR+3WQREAMBACsZ5/bWiiMvgEBTt5cW37hjsBBAgQIECAwFwgyfYPCCBAgAABAgTWAh8aBHZBl14e8wAAAABJRU5ErkJggg==',
 	'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAOUlEQVRYR+3WMREAMAwDsYY/yoDI7MLwIiP40+RJklfcCCBAgAABAgTqArfb/QMCCBAgQIAAgbbAB3z/e0F3js2cAAAAAElFTkSuQmCC',
@@ -76,13 +77,13 @@ THREE.MMDLoader.prototype.defaultToonTextures = [
  * even if server responds with "Access-Control-Allow-Origin: *"
  * because some image operation fails in MMDLoader.
  */
-THREE.MMDLoader.prototype.setTextureCrossOrigin = function ( value ) {
+MMDLoader.prototype.setTextureCrossOrigin = function ( value ) {
 
 	this.textureCrossOrigin = value;
 
 };
 
-THREE.MMDLoader.prototype.load = function ( modelUrl, vmdUrls, callback, onProgress, onError ) {
+MMDLoader.prototype.load = function ( modelUrl, vmdUrls, callback, onProgress, onError ) {
 
 	var scope = this;
 
@@ -99,7 +100,7 @@ THREE.MMDLoader.prototype.load = function ( modelUrl, vmdUrls, callback, onProgr
 
 };
 
-THREE.MMDLoader.prototype.loadModel = function ( url, callback, onProgress, onError ) {
+MMDLoader.prototype.loadModel = function ( url, callback, onProgress, onError ) {
 
 	var scope = this;
 
@@ -114,13 +115,13 @@ THREE.MMDLoader.prototype.loadModel = function ( url, callback, onProgress, onEr
 
 };
 
-THREE.MMDLoader.prototype.createModel = function ( buffer, modelExtension, texturePath, onProgress, onError ) {
+MMDLoader.prototype.createModel = function ( buffer, modelExtension, texturePath, onProgress, onError ) {
 
 	return this.createMesh( this.parseModel( buffer, modelExtension ), texturePath, onProgress, onError );
 
 };
 
-THREE.MMDLoader.prototype.loadVmd = function ( url, callback, onProgress, onError ) {
+MMDLoader.prototype.loadVmd = function ( url, callback, onProgress, onError ) {
 
 	var scope = this;
 
@@ -132,7 +133,7 @@ THREE.MMDLoader.prototype.loadVmd = function ( url, callback, onProgress, onErro
 
 };
 
-THREE.MMDLoader.prototype.loadVmds = function ( urls, callback, onProgress, onError ) {
+MMDLoader.prototype.loadVmds = function ( urls, callback, onProgress, onError ) {
 
 	var scope = this;
 
@@ -165,7 +166,7 @@ THREE.MMDLoader.prototype.loadVmds = function ( urls, callback, onProgress, onEr
 
 };
 
-THREE.MMDLoader.prototype.loadAudio = function ( url, callback, onProgress, onError ) {
+MMDLoader.prototype.loadAudio = function ( url, callback, onProgress, onError ) {
 
 	var listener = new THREE.AudioListener();
 	var audio = new THREE.Audio( listener );
@@ -180,7 +181,7 @@ THREE.MMDLoader.prototype.loadAudio = function ( url, callback, onProgress, onEr
 
 };
 
-THREE.MMDLoader.prototype.loadVpd = function ( url, callback, onProgress, onError, params ) {
+MMDLoader.prototype.loadVpd = function ( url, callback, onProgress, onError, params ) {
 
 	var scope = this;
 
@@ -194,7 +195,7 @@ THREE.MMDLoader.prototype.loadVpd = function ( url, callback, onProgress, onErro
 
 };
 
-THREE.MMDLoader.prototype.parseModel = function ( buffer, modelExtension ) {
+MMDLoader.prototype.parseModel = function ( buffer, modelExtension ) {
 
 	// Should I judge from model data header?
 	switch ( modelExtension.toLowerCase() ) {
@@ -212,45 +213,45 @@ THREE.MMDLoader.prototype.parseModel = function ( buffer, modelExtension ) {
 
 };
 
-THREE.MMDLoader.prototype.parsePmd = function ( buffer ) {
+MMDLoader.prototype.parsePmd = function ( buffer ) {
 
 	return this.parser.parsePmd( buffer, true );
 
 };
 
-THREE.MMDLoader.prototype.parsePmx = function ( buffer ) {
+MMDLoader.prototype.parsePmx = function ( buffer ) {
 
 	return this.parser.parsePmx( buffer, true );
 
 };
 
-THREE.MMDLoader.prototype.parseVmd = function ( buffer ) {
+MMDLoader.prototype.parseVmd = function ( buffer ) {
 
 	return this.parser.parseVmd( buffer, true );
 
 };
 
-THREE.MMDLoader.prototype.parseVpd = function ( text ) {
+MMDLoader.prototype.parseVpd = function ( text ) {
 
 	return this.parser.parseVpd( text, true );
 
 };
 
-THREE.MMDLoader.prototype.mergeVmds = function ( vmds ) {
+MMDLoader.prototype.mergeVmds = function ( vmds ) {
 
 	return this.parser.mergeVmds( vmds );
 
 };
 
-THREE.MMDLoader.prototype.pourVmdIntoModel = function ( mesh, vmd, name ) {
+MMDLoader.prototype.pourVmdIntoModel = function ( mesh, vmd, name ) {
 
 	this.createAnimation( mesh, vmd, name );
 
 };
 
-THREE.MMDLoader.prototype.pourVmdIntoCamera = function ( camera, vmd, name ) {
+MMDLoader.prototype.pourVmdIntoCamera = function ( camera, vmd, name ) {
 
-	var helper = new THREE.MMDLoader.DataCreationHelper();
+	var helper = new MMDLoader.DataCreationHelper();
 
 	var initAnimation = function () {
 
@@ -356,7 +357,15 @@ THREE.MMDLoader.prototype.pourVmdIntoCamera = function ( camera, vmd, name ) {
 
 			}
 
-			return new THREE.MMDLoader[ type ]( node, times, values, interpolations );
+			var track = new THREE[ type ]( node, times, values );
+
+			track.createInterpolant = function InterpolantFactoryMethodCubicBezier( result ) {
+
+				return new MMDLoader.CubicBezierInterpolation( this.times, this.values, this.getValueSize(), result, new Float32Array( interpolations ) );
+
+			};
+
+			return track;
 
 		};
 
@@ -379,16 +388,6 @@ THREE.MMDLoader.prototype.pourVmdIntoCamera = function ( camera, vmd, name ) {
 
 			position.add( center );
 			position.applyQuaternion( quaternion );
-
-			/*
-			 * Note: This is a workaround not to make Animation system calculate lerp
-			 *       if the diff from the last frame is 1 frame (in 30fps).
-			 */
-			if ( times.length > 0 && time < times[ times.length - 1 ] + ( 1 / 30 ) * 1.5 ) {
-
-				times[ times.length - 1 ] = time - 1e-13;
-
-			}
 
 			times.push( time );
 
@@ -421,10 +420,10 @@ THREE.MMDLoader.prototype.pourVmdIntoCamera = function ( camera, vmd, name ) {
 
 		var tracks = [];
 
-		tracks.push( createTrack( '.center', 'VectorKeyframeTrackEx', times, centers, cInterpolations ) );
-		tracks.push( createTrack( '.quaternion', 'QuaternionKeyframeTrackEx', times, quaternions, qInterpolations ) );
-		tracks.push( createTrack( '.position', 'VectorKeyframeTrackEx', times, positions, pInterpolations ) );
-		tracks.push( createTrack( '.fov', 'NumberKeyframeTrackEx', times, fovs, fInterpolations ) );
+		tracks.push( createTrack( '.center', 'VectorKeyframeTrack', times, centers, cInterpolations ) );
+		tracks.push( createTrack( '.quaternion', 'QuaternionKeyframeTrack', times, quaternions, qInterpolations ) );
+		tracks.push( createTrack( '.position', 'VectorKeyframeTrack', times, positions, pInterpolations ) );
+		tracks.push( createTrack( '.fov', 'NumberKeyframeTrack', times, fovs, fInterpolations ) );
 
 		var clip = new THREE.AnimationClip( name === undefined ? THREE.Math.generateUUID() : name, - 1, tracks );
 
@@ -438,7 +437,7 @@ THREE.MMDLoader.prototype.pourVmdIntoCamera = function ( camera, vmd, name ) {
 
 };
 
-THREE.MMDLoader.prototype.extractExtension = function ( url ) {
+MMDLoader.prototype.extractExtension = function ( url ) {
 
 	var index = url.lastIndexOf( '.' );
 
@@ -452,7 +451,7 @@ THREE.MMDLoader.prototype.extractExtension = function ( url ) {
 
 };
 
-THREE.MMDLoader.prototype.loadFile = function ( url, onLoad, onProgress, onError, responseType, mimeType ) {
+MMDLoader.prototype.loadFile = function ( url, onLoad, onProgress, onError, responseType, mimeType ) {
 
 	var loader = new THREE.FileLoader( this.manager );
 
@@ -470,25 +469,25 @@ THREE.MMDLoader.prototype.loadFile = function ( url, onLoad, onProgress, onError
 
 };
 
-THREE.MMDLoader.prototype.loadFileAsBuffer = function ( url, onLoad, onProgress, onError ) {
+MMDLoader.prototype.loadFileAsBuffer = function ( url, onLoad, onProgress, onError ) {
 
 	this.loadFile( url, onLoad, onProgress, onError, 'arraybuffer' );
 
 };
 
-THREE.MMDLoader.prototype.loadFileAsText = function ( url, onLoad, onProgress, onError ) {
+MMDLoader.prototype.loadFileAsText = function ( url, onLoad, onProgress, onError ) {
 
 	this.loadFile( url, onLoad, onProgress, onError, 'text' );
 
 };
 
-THREE.MMDLoader.prototype.loadFileAsShiftJISText = function ( url, onLoad, onProgress, onError ) {
+MMDLoader.prototype.loadFileAsShiftJISText = function ( url, onLoad, onProgress, onError ) {
 
 	this.loadFile( url, onLoad, onProgress, onError, 'text', 'text/plain; charset=shift_jis' );
 
 };
 
-THREE.MMDLoader.prototype.createMesh = function ( model, texturePath, onProgress, onError ) {
+MMDLoader.prototype.createMesh = function ( model, texturePath, onProgress, onError ) {
 
 	var scope = this;
 	var geometry = new THREE.BufferGeometry();
@@ -1478,7 +1477,7 @@ THREE.MMDLoader.prototype.createMesh = function ( model, texturePath, onProgress
 		geometry.addAttribute( 'position', new THREE.Float32BufferAttribute( buffer.vertices, 3 ) );
 		geometry.addAttribute( 'normal', new THREE.Float32BufferAttribute( buffer.normals, 3 ) );
 		geometry.addAttribute( 'uv', new THREE.Float32BufferAttribute( buffer.uvs, 2 ) );
-		geometry.addAttribute( 'skinIndex', new THREE.Float32BufferAttribute( buffer.skinIndices, 4 ) );
+		geometry.addAttribute( 'skinIndex', new THREE.Uint16BufferAttribute( buffer.skinIndices, 4 ) );
 		geometry.addAttribute( 'skinWeight', new THREE.Float32BufferAttribute( buffer.skinWeights, 4 ) );
 
 		geometry.computeBoundingSphere();
@@ -1504,9 +1503,9 @@ THREE.MMDLoader.prototype.createMesh = function ( model, texturePath, onProgress
 
 };
 
-THREE.MMDLoader.prototype.createAnimation = function ( mesh, vmd, name ) {
+MMDLoader.prototype.createAnimation = function ( mesh, vmd, name ) {
 
-	var helper = new THREE.MMDLoader.DataCreationHelper();
+	var helper = new MMDLoader.DataCreationHelper();
 
 	var initMotionAnimations = function () {
 
@@ -1527,6 +1526,20 @@ THREE.MMDLoader.prototype.createAnimation = function ( mesh, vmd, name ) {
 			array.push( interpolation[ index + 8 ] / 127 ); // x2
 			array.push( interpolation[ index + 4 ] / 127 ); // y1
 			array.push( interpolation[ index + 12 ] / 127 ); // y2
+
+		};
+
+		var createTrack = function ( node, type, times, values, interpolations ) {
+
+			var track = new THREE[ type ]( node, times, values );
+
+			track.createInterpolant = function InterpolantFactoryMethodCubicBezier( result ) {
+
+				return new MMDLoader.CubicBezierInterpolation( this.times, this.values, this.getValueSize(), result, new Float32Array( interpolations ) );
+
+			};
+
+			return track;
 
 		};
 
@@ -1576,8 +1589,8 @@ THREE.MMDLoader.prototype.createAnimation = function ( mesh, vmd, name ) {
 
 			var boneName = '.bones[' + bone.name + ']';
 
-			tracks.push( new THREE.MMDLoader.VectorKeyframeTrackEx( boneName + '.position', times, positions, pInterpolations ) );
-			tracks.push( new THREE.MMDLoader.QuaternionKeyframeTrackEx( boneName + '.quaternion', times, rotations, rInterpolations ) );
+			tracks.push( createTrack( boneName + '.position', 'VectorKeyframeTrack', times, positions, pInterpolations ) );
+			tracks.push( createTrack( boneName + '.quaternion', 'QuaternionKeyframeTrack', times, rotations, rInterpolations ) );
 
 		}
 
@@ -1631,13 +1644,13 @@ THREE.MMDLoader.prototype.createAnimation = function ( mesh, vmd, name ) {
 
 };
 
-THREE.MMDLoader.DataCreationHelper = function () {
+MMDLoader.DataCreationHelper = function () {
 
 };
 
-THREE.MMDLoader.DataCreationHelper.prototype = {
+MMDLoader.DataCreationHelper.prototype = {
 
-	constructor: THREE.MMDLoader.DataCreationHelper,
+	constructor: MMDLoader.DataCreationHelper,
 
 	/*
 	 * Note: Sometimes to use Japanese Unicode characters runs into problems in Three.js.
@@ -1761,84 +1774,7 @@ THREE.MMDLoader.DataCreationHelper.prototype = {
 
 };
 
-/*
- * extends existing KeyframeTrack for bone and camera animation.
- *   - use Float64Array for times
- *   - use Cubic Bezier curves interpolation
- */
-THREE.MMDLoader.VectorKeyframeTrackEx = function ( name, times, values, interpolationParameterArray ) {
-
-	this.interpolationParameters = new Float32Array( interpolationParameterArray );
-
-	THREE.VectorKeyframeTrack.call( this, name, times, values );
-
-};
-
-THREE.MMDLoader.VectorKeyframeTrackEx.prototype = Object.create( THREE.VectorKeyframeTrack.prototype );
-THREE.MMDLoader.VectorKeyframeTrackEx.prototype.constructor = THREE.MMDLoader.VectorKeyframeTrackEx;
-THREE.MMDLoader.VectorKeyframeTrackEx.prototype.TimeBufferType = Float64Array;
-
-THREE.MMDLoader.VectorKeyframeTrackEx.prototype.InterpolantFactoryMethodCubicBezier = function ( result ) {
-
-	return new THREE.MMDLoader.CubicBezierInterpolation( this.times, this.values, this.getValueSize(), result, this.interpolationParameters );
-
-};
-
-THREE.MMDLoader.VectorKeyframeTrackEx.prototype.setInterpolation = function ( interpolation ) {
-
-	this.createInterpolant = this.InterpolantFactoryMethodCubicBezier;
-
-};
-
-THREE.MMDLoader.QuaternionKeyframeTrackEx = function ( name, times, values, interpolationParameterArray ) {
-
-	this.interpolationParameters = new Float32Array( interpolationParameterArray );
-
-	THREE.QuaternionKeyframeTrack.call( this, name, times, values );
-
-};
-
-THREE.MMDLoader.QuaternionKeyframeTrackEx.prototype = Object.create( THREE.QuaternionKeyframeTrack.prototype );
-THREE.MMDLoader.QuaternionKeyframeTrackEx.prototype.constructor = THREE.MMDLoader.QuaternionKeyframeTrackEx;
-THREE.MMDLoader.QuaternionKeyframeTrackEx.prototype.TimeBufferType = Float64Array;
-
-THREE.MMDLoader.QuaternionKeyframeTrackEx.prototype.InterpolantFactoryMethodCubicBezier = function ( result ) {
-
-	return new THREE.MMDLoader.CubicBezierInterpolation( this.times, this.values, this.getValueSize(), result, this.interpolationParameters );
-
-};
-
-THREE.MMDLoader.QuaternionKeyframeTrackEx.prototype.setInterpolation = function ( interpolation ) {
-
-	this.createInterpolant = this.InterpolantFactoryMethodCubicBezier;
-
-};
-
-THREE.MMDLoader.NumberKeyframeTrackEx = function ( name, times, values, interpolationParameterArray ) {
-
-	this.interpolationParameters = new Float32Array( interpolationParameterArray );
-
-	THREE.NumberKeyframeTrack.call( this, name, times, values );
-
-};
-
-THREE.MMDLoader.NumberKeyframeTrackEx.prototype = Object.create( THREE.NumberKeyframeTrack.prototype );
-THREE.MMDLoader.NumberKeyframeTrackEx.prototype.constructor = THREE.MMDLoader.NumberKeyframeTrackEx;
-THREE.MMDLoader.NumberKeyframeTrackEx.prototype.TimeBufferType = Float64Array;
-
-THREE.MMDLoader.NumberKeyframeTrackEx.prototype.InterpolantFactoryMethodCubicBezier = function ( result ) {
-
-	return new THREE.MMDLoader.CubicBezierInterpolation( this.times, this.values, this.getValueSize(), result, this.interpolationParameters );
-
-};
-
-THREE.MMDLoader.NumberKeyframeTrackEx.prototype.setInterpolation = function ( interpolation ) {
-
-	this.createInterpolant = this.InterpolantFactoryMethodCubicBezier;
-
-};
-
-THREE.MMDLoader.CubicBezierInterpolation = function ( parameterPositions, sampleValues, sampleSize, resultBuffer, params ) {
+MMDLoader.CubicBezierInterpolation = function ( parameterPositions, sampleValues, sampleSize, resultBuffer, params ) {
 
 	THREE.Interpolant.call( this, parameterPositions, sampleValues, sampleSize, resultBuffer );
 
@@ -1846,10 +1782,10 @@ THREE.MMDLoader.CubicBezierInterpolation = function ( parameterPositions, sample
 
 };
 
-THREE.MMDLoader.CubicBezierInterpolation.prototype = Object.create( THREE.LinearInterpolant.prototype );
-THREE.MMDLoader.CubicBezierInterpolation.prototype.constructor = THREE.MMDLoader.CubicBezierInterpolation;
+MMDLoader.CubicBezierInterpolation.prototype = Object.create( THREE.LinearInterpolant.prototype );
+MMDLoader.CubicBezierInterpolation.prototype.constructor = MMDLoader.CubicBezierInterpolation;
 
-THREE.MMDLoader.CubicBezierInterpolation.prototype.interpolate_ = function ( i1, t0, t, t1 ) {
+MMDLoader.CubicBezierInterpolation.prototype.interpolate_ = function ( i1, t0, t, t1 ) {
 
 	var result = this.resultBuffer;
 	var values = this.sampleValues;
@@ -1858,7 +1794,8 @@ THREE.MMDLoader.CubicBezierInterpolation.prototype.interpolate_ = function ( i1,
 	var offset1 = i1 * stride;
 	var offset0 = offset1 - stride;
 
-	var weight1 = ( t - t0 ) / ( t1 - t0 );
+	// No interpolation if next key frame is in one frame in 30fps. This is from MMD animation spec.
+	var weight1 = ( ( t1 - t0 ) < 1 / 30 * 1.5 ) ? 0.0 : ( t - t0 ) / ( t1 - t0 );
 
 	if ( stride === 4 ) { // Quaternion
 
@@ -1903,7 +1840,7 @@ THREE.MMDLoader.CubicBezierInterpolation.prototype.interpolate_ = function ( i1,
 
 };
 
-THREE.MMDLoader.CubicBezierInterpolation.prototype._calculate = function ( x1, x2, y1, y2, x ) {
+MMDLoader.CubicBezierInterpolation.prototype._calculate = function ( x1, x2, y1, y2, x ) {
 
 	/*
 	 * Cubic Bezier curves
@@ -2728,4 +2665,4 @@ THREE.MMDHelper.prototype = {
 
 };
 
-export default THREE.MMDLoader;
+export default MMDLoader;
